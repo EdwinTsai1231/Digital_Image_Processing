@@ -21,14 +21,8 @@ def bitplane(image , plane):
 
 def laplacian_filter(image) :
     m, n = image.shape
-    # Initializing the filter with ones; since the filter is a complex function,
-    # it has two channels, representing the real and imaginary parts;
-    # the data type is float32, since the pixels will take floating point values:
     filter = np.zeros((m, n, 2), dtype=np.float32)
 
-    # Scanning through each pixel and calculating the negative of the sum of the
-    # squares of the pixels, and assigning the value to the corresponding pixel
-    # in the filter:
     for i in range(m):
         for j in range(n):
             filter[i][j] = -((i - m / 2) ** 2 + (j - n / 2) ** 2)
