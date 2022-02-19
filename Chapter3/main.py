@@ -17,7 +17,7 @@ def bitplane(image , plane):
         temp_plane = np.copy(plane)
         temp_plane[temp] = 255
         cv.imshow(str(i), temp_plane[:, :, i])
-        cv.imwrite('output/' + str(i) + '.tif', plane[:, :, i])
+        cv.imwrite('output/' + str(i) + '.png', plane[:, :, i])
 
 def laplacian_filter(image) :
     m, n = image.shape
@@ -44,22 +44,21 @@ height, width = image.shape
 plane = np.zeros((height,width,8) , dtype=numpy.uint8)
 mask = np.zeros((height , width) ,dtype=numpy.uint8)
 cv.imshow("original" , image)
-cv.imwrite("output/original.tif" , image)
+cv.imwrite("output/original_100-dollars.png" , image)
 
 bitplane(image, plane);
 
 pic_reconstruct = reconstruct(plane[:,:,7] , plane[:,:,6] , plane[:,:,5])
 cv.imshow("reconstruct", pic_reconstruct)
-cv.imwrite("output/reconstruct.tif" , pic_reconstruct)
+cv.imwrite("output/reconstruct.png" , pic_reconstruct)
 
 image2 = cv.imread('input/blurry_moon.tif')
+cv.imwrite('output/original_moon.png' , image2)
 image2 = cv.cvtColor(image2, cv.COLOR_BGR2GRAY)
 lap_image = laplacian_filter(image2)
-
 imgplot = plt.imshow(lap_image, cmap="gray")
 plt.show()
 plt.imsave('output/laplacian.png',lap_image,cmap="gray")
-
 
 cv.waitKey(0)
 cv.destroyAllWindows()
